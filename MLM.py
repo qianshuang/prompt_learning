@@ -14,3 +14,10 @@ class Bert_Model(nn.Module):
                             token_type_ids)  # masked LM 输出的是 mask的值 对应的ids的概率 ，输出 会是词表大小，里面是概率
         logit = outputs[0]  # 池化后的输出 [bs, config.hidden_size]
         return logit
+
+
+from transformers import pipeline
+
+unmasker = pipeline('fill-mask', model='bert-base-uncased')
+pred = unmasker("natural language processing is a [MASK] technology.")
+print(pred)
